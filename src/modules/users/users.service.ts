@@ -18,4 +18,8 @@ export class UsersService {
   getUsers() {
     return this.usersRepo.findAll();
   }
+
+  deleteUser(id: string){
+    return this.usersRepo.softDelete(id);
+  }
 }

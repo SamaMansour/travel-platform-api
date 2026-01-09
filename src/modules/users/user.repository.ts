@@ -19,4 +19,21 @@ export class UsersRepository {
   findAll() {
     return this.userModel.find().lean();
   }
+  softDelete(id: string) {
+  return this.userModel.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        isDeleted: true,
+        deletedAt: new Date(),
+      },
+    },
+    { new: true },
+  );
+}
+
+findAllActive() {
+  return this.userModel.find({ isDeleted: false }).lean();
+}
+
 }
