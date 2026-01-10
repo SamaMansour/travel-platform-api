@@ -47,6 +47,22 @@ findByEmailWithPassword(email: string) {
     .lean();
 }
 
+updateRefreshToken(userId: string, hash: string | null) {
+  return this.userModel.findByIdAndUpdate(
+    userId,
+    { $set: { refreshTokenHash: hash } },
+    { new: true },
+  );
+}
+
+findByIdWithRefresh(userId: string) {
+  return this.userModel
+    .findById(userId)
+    .select('+refreshTokenHash')
+    .lean();
+}
+
+
 
 
 
