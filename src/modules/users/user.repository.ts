@@ -19,6 +19,7 @@ export class UsersRepository {
     return this.userModel.findOne({ email }).lean();
   }
 
+
   findAll() {
     return this.userModel.find().lean();
   }
@@ -38,5 +39,13 @@ export class UsersRepository {
 findAllActive() {
   return this.userModel.find({ isDeleted: false }).lean();
 }
+
+findByEmailWithPassword(email: string) {
+  return this.userModel
+    .findOne({ email })
+    .select('+password')
+    .lean();
+}
+
 
 }

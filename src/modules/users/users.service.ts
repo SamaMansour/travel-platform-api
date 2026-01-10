@@ -4,6 +4,8 @@ import { UsersRepository } from './user.repository';
 import { InjectConnection } from '@nestjs/mongoose';
 import { Connection } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
+import * as bcrypt from 'bcrypt';
+
 
 @Injectable()
 export class UsersService {
@@ -13,15 +15,14 @@ private readonly connection: Connection,
 
   ) {}
 
-  createUser() {
-    return this.usersRepo.create({
-      firstName: 'Sama',
-      lastName: 'Mansour',
-      email: 'samatest@travel.com',
-      role: UserRole.ADMIN,
-    });
-  }
+async createUser(dto: CreateUserDto) {
+  const hashedPassword = await bcrypt.hash(dto.password, 10);
 
+  return this.usersRepo.create({
+    ...dto,
+    password: hashedPassword,
+  });
+}
   getUsers() {
     return this.usersRepo.findAll();
   }
