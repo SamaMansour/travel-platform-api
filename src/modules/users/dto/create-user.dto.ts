@@ -4,11 +4,11 @@ import { UserRole } from '../schemas/user.schema';
 export class CreateUserDto {
   @IsString()
   @MinLength(2)
-  firstName: string;
+  firstName?: string;
 
   @IsString()
   @MinLength(2)
-  lastName: string;
+  lastName?: string;
 
   @IsEmail()
   email: string;
