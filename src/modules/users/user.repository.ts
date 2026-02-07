@@ -19,51 +19,50 @@ export class UsersRepository {
     return this.userModel.findOne({ email }).lean();
   }
 
+  findById(id: string) {
+    return this.userModel.findById(id).lean();
+  }
 
   findAll() {
     return this.userModel.find().lean();
   }
+
   softDelete(id: string) {
-  return this.userModel.findByIdAndUpdate(
-    id,
-    {
-      $set: {
-        isDeleted: true,
-        deletedAt: new Date(),
+    return this.userModel.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          isDeleted: true,
+          deletedAt: new Date(),
+        },
       },
-    },
-    { new: true },
-  );
-}
+      { new: true },
+    );
+  }
 
-findAllActive() {
-  return this.userModel.find({ isDeleted: false }).lean();
-}
+  findAllActive() {
+    return this.userModel.find({ isDeleted: false }).lean();
+  }
 
-findByEmailWithPassword(email: string) {
-  return this.userModel
-    .findOne({ email })
-    .select('+password')
-    .lean();
-}
+  findByEmailWithPassword(email: string) {
+    return this.userModel
+      .findOne({ email })
+      .select('+password')
+      .lean();
+  }
 
-updateRefreshToken(userId: string, hash: string | null) {
-  return this.userModel.findByIdAndUpdate(
-    userId,
-    { $set: { refreshTokenHash: hash } },
-    { new: true },
-  );
-}
+  updateRefreshToken(userId: string, hash: string | null) {
+    return this.userModel.findByIdAndUpdate(
+      userId,
+      { $set: { refreshTokenHash: hash } },
+      { new: true },
+    );
+  }
 
-findByIdWithRefresh(userId: string) {
-  return this.userModel
-    .findById(userId)
-    .select('+refreshTokenHash')
-    .lean();
-}
-
-
-
-
-
+  findByIdWithRefresh(userId: string) {
+    return this.userModel
+      .findById(userId)
+      .select('+refreshTokenHash')
+      .lean();
+  }
 }
