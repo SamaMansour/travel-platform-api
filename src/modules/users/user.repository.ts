@@ -40,6 +40,12 @@ export class UsersRepository {
     );
   }
 
+  hardDelete(id: string) {
+    return this.userModel.findByIdAndDelete(id);
+  }
+  
+
+
   findAllActive() {
     return this.userModel.find({ isDeleted: false }).lean();
   }

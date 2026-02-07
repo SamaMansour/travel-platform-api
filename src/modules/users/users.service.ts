@@ -28,7 +28,7 @@ async createUser(dto: CreateUserDto) {
   }
 
   deleteUser(id: string){
-    return this.usersRepo.softDelete(id);
+    return this.usersRepo.hardDelete(id);
   }
   async createUserWithLog(dto: CreateUserDto) {
   const session = await this.connection.startSession();
