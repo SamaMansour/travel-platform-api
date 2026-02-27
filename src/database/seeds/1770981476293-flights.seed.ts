@@ -1,7 +1,7 @@
 import { INestApplicationContext } from '@nestjs/common';
 import { getModelToken } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Flight, FlightDocument } from '../../modules/flights/schemas/flight.schema';
+import { Flight, FlightDocument, FlightStatus } from '../../modules/flights/schemas/flight.schema';
 
 export async function run(app: INestApplicationContext) {
   const flightModel = app.get<Model<FlightDocument>>(
@@ -11,6 +11,7 @@ export async function run(app: INestApplicationContext) {
   await flightModel.deleteMany({});
 
   const airports = ['AMM', 'DXB', 'IST', 'LHR', 'JFK', 'CAI', 'DOH'];
+  const airlines = ['Qatar Airways', 'Emirates', 'Turkish Airlines', 'British Airways', 'Royal Jordanian', 'EgyptAir', 'Etihad'];
 
   const flights: Flight[] = [];
 
@@ -30,6 +31,9 @@ export async function run(app: INestApplicationContext) {
       arrivalTime: new Date(Date.now() + 3 * 60 * 60 * 1000),
       price: Math.floor(Math.random() * 500) + 100,
       isActive: true,
+      airline: airlines[Math.floor(Math.random() * airlines.length)],
+      status: FlightStatus.DRAFT,
+      isDeleted: false
     });
   }
 

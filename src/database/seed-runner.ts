@@ -11,11 +11,11 @@ async function bootstrap() {
     imports: [FlightsModule],
   });
 
-  const seedsPath = path.join(__dirname, 'seeds');
+  const seedsPath = path.join(__dirname, '../../dist/database/seeds');
 
   const files = fs
     .readdirSync(seedsPath)
-    .filter((file) => file.endsWith('.ts'))
+    .filter((file) => file.endsWith('.js'))
     .sort();
 
   for (const file of files) {

@@ -19,7 +19,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "seed:create": "node scripts/create-seed.js",
-    "seed:run": "ts-node --esm src/database/seed-runner.ts"
+    "seed:run": "ts-node src/database/seed-runner.ts",
+    "seed:down": "ts-node src/database/seed-down.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
