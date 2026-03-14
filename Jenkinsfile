@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:20'
-            args '-u root'
-        }
-    }
+    agent any
 
     parameters {
         string(name: 'BRANCH', defaultValue: 'main', description: 'Git branch')
@@ -23,7 +18,11 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm ci'
+                sh '''
+                node -v
+                npm -v
+                npm install
+                '''
             }
         }
 
@@ -39,16 +38,6 @@ pipeline {
                 curl -X POST "https://api.render.com/deploy/srv-d6q9bnfgi27c739url70?key=_Y0ttSqG-n4"
                 '''
             }
-        }
-
-    }
-
-    post {
-        success {
-            echo "Deployment successful 🚀"
-        }
-        failure {
-            echo "Pipeline failed ❌"
         }
     }
 }
