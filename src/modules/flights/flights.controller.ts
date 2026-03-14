@@ -24,10 +24,10 @@ export class FlightsAdminController {
     return this.flightsService.unpublishFlight(id);
   }
 
-  @Patch(':id/archive')
-  async archive(@Param('id') id: string) {
-    return this.flightsService.archiveFlight(id);
-  }
+  // @Patch(':id/archive')
+  // async archive(@Param('id') id: string) {
+  //   return this.flightsService.archiveFlight(id);
+  // }
 
   @Delete(':id')
   async softDelete(@Param('id') id: string) {
