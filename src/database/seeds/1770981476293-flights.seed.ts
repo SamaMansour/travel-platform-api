@@ -31,9 +31,16 @@ export async function run(app: INestApplicationContext) {
       arrivalTime: new Date(Date.now() + 3 * 60 * 60 * 1000),
       price: Math.floor(Math.random() * 500) + 100,
       isActive: true,
-      airline: airlines[Math.floor(Math.random() * airlines.length)],
+      airline: [airlines[Math.floor(Math.random() * airlines.length)]],
       status: FlightStatus.DRAFT,
-      isDeleted: false
+      isDeleted: false,
+      economySeats: 0,
+      businessSeats: 0,
+      firstSeats: 0,
+      economyPrice: 0,
+      businessPrice: 0,
+      firstPrice: 0,
+      reason: ''
     });
   }
 

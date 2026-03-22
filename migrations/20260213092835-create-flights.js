@@ -9,10 +9,13 @@ async function up(connection) {
   await collection.createIndex({ destination: 1 });
   await collection.createIndex({ departureTime: 1 });
   await collection.createIndex({ arrivalTime: 1 });
-  await collection.createIndex({ price: 1 });
-  await collection.createIndex({ airline: 1 });
+  await collection.createIndex({ economySeats: 1 });
+  await collection.createIndex({ businessSeats: 1 });
+  await collection.createIndex({ firstSeats: 1 });
+  await collection.createIndex({ economyPrice: 1 });
+  await collection.createIndex({ businessPrice: 1 });
+  await collection.createIndex({ firstPrice: 1 });
   await collection.createIndex({ status: 1 });
-  await collection.createIndex({ isActive: 1 });
   await collection.createIndex({ isDeleted: 1 });
 
   // Compound index for origin and destination

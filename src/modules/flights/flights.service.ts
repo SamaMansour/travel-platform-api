@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectConnection, InjectModel } from '@nestjs/mongoose';
 import { Connection, Model } from 'mongoose';
 import { Flight, FlightDocument, FlightStatus } from './schemas/flight.schema';
+import { UpdateFlightDto } from './dto/update-flight.dto';
+import { FlightsRepository } from './flights.repository';
 
 @Injectable()
 export class FlightsService {
@@ -10,6 +12,7 @@ export class FlightsService {
     private readonly connection: Connection,
     @InjectModel(Flight.name)
     private readonly flightModel: Model<FlightDocument>,
+    private readonly flightsRepository: FlightsRepository,
   ) {}
 
   async createFlight(data: Partial<Flight>) {
@@ -117,4 +120,20 @@ export class FlightsService {
       { new: true },
     );
   }
+
+  async updateFlight(id: string, updateFlightDto: UpdateFlightDto): Promise<any> {
+    const flight = await this.flightsRepository.findById(id);
+    if (!flight) {
+      throw new NotFoundException(`Flight with ID ${id} not found`);
+    }
+    return this.flightsRepository.update(id, updateFlightDto);
+  }
+
+async getFlightById(id: string): Promise<any> {
+  const flight = await this.flightsRepository.findById(id);
+  if (!flight) {
+    throw new NotFoundException(`Flight with ID ${id} not found`);
+  }
+  return flight;
+}
 }
